@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.7-labs
+# syntax=docker/dockerfile:1.7
 
 # Opt-in extension dependencies at build time (space-separated directory names).
 # Example: docker build --build-arg OPENCLAW_EXTENSIONS="diagnostics-otel matrix" .
@@ -66,9 +66,9 @@ COPY --from=ext-deps /out/ ./extensions/
 
 # Reduce OOM risk on low-memory hosts during dependency installation.
 # Docker builds on small VMs may otherwise fail with "Killed" (exit 137).
-RUN --mount=type=cache,id=openclaw-pnpm-store,target=/root/.local/share/pnpm/store,sharing=locked \
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked \
     NODE_OPTIONS=--max-old-space-size=2048 pnpm install --frozen-lockfile
-
+    
 COPY . .
 
 # Normalize extension paths now so runtime COPY preserves safe modes
