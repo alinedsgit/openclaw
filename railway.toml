@@ -1,5 +1,5 @@
 [deploy]
 healthcheckPath = "/setup/healthz"
 healthcheckTimeout = 300
-startCommand = "node openclaw.mjs gateway --allow-unconfigured --bind lan"
+startCommand = "node openclaw.mjs gateway --allow-unconfigured --bind lan --config-file /app/openclaw.json"
 
